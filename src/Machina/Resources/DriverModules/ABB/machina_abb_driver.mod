@@ -58,8 +58,8 @@ MODULE Machina_Driver
     ENDRECORD
 
     ! SERVER DATA --> to modify by user
-    PERS string SERVER_IP := "{{HOSTNAME}}";     ! Replace "{{HOSTNAME}}" with device IP, typically "192.168.125.1" if working with a real robot or "127.0.0.1" if testing a virtual one (RobotStudio)
-    CONST num SERVER_PORT := {{PORT}};           ! Replace {{PORT}} with custom port number, like for example 7000
+    PERS string SERVER_IP := "127.0.0.1";     ! Replace "{{HOSTNAME}}" with device IP, typically "192.168.125.1" if working with a real robot or "127.0.0.1" if testing a virtual one (RobotStudio)
+    CONST num SERVER_PORT := 7000;           ! Replace {{PORT}} with custom port number, like for example 7000
 
     ! Useful for handshakes and version compatibility checks...
     CONST string MACHINA_SERVER_VERSION := "1.4.2";
@@ -225,19 +225,23 @@ MODULE Machina_Driver
                 TEST currentAction.code
                 CASE INST_MOVEL:
                     cursorRobTarget := GetRobTarget(currentAction);
+                    StartMove;
                     MoveL cursorRobTarget, cursorSpeed, cursorZone, cursorTool, \WObj:=cursorWObj;
 
                 CASE INST_MOVEJ:
                     cursorRobTarget := GetRobTarget(currentAction);
+                    StartMove;
                     MoveJ cursorRobTarget, cursorSpeed, cursorZone, cursorTool, \WObj:=cursorWObj;
 
                 CASE INST_MOVEC:
                     cursorRobTarget := GetRobTarget(currentAction);
                     throughRobTarget := GetThroughRobTarget(currentAction);
+                    StartMove;
                     MoveC throughRobTarget, cursorRobTarget, cursorSpeed, cursorZone, cursorTool, \WObj:=cursorWObj;
 
                 CASE INST_MOVEABSJ:
                     cursorJointTarget := GetJointTarget(currentAction);
+                    StartMove;
                     MoveAbsJ cursorJointTarget, cursorSpeed, cursorZone, cursorTool, \WObj:=cursorWObj;
 
                 CASE INST_SPEED:
@@ -300,10 +304,9 @@ MODULE Machina_Driver
                 CASE INST_SET_MOTION_UPDATE_INTERVAL:
                     monitorUpdateInterval := currentAction.p1;
                     TPWrite("Monitor update interval set to " + NumToStr(monitorUpdateInterval, 2) + " s.");
-
+                    
                 CASE INST_STOP_MOTION:
-                    StopMove \Quick \AllMotionTasks;
-					
+                    StopMove \Quick;
                 CASE INST_CUSTOM_ACTION:
                     CustomAction currentAction;
 
