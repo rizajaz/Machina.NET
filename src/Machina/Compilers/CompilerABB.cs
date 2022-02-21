@@ -457,6 +457,10 @@ namespace Machina
                     dec = $"    SetAO {aioa.pinName}, {aioa.value};";
                     break;
 
+                case ActionType.StopMotion:
+                    dec = $"    StopMove \\Quick \\AllMotionTasks;\n";
+                    break;
+
 
                 case ActionType.CustomCode:
                     ActionCustomCode acc = action as ActionCustomCode;
@@ -613,6 +617,10 @@ namespace Machina
                 case ActionType.IOAnalog:
                     ActionIOAnalog aioa = (ActionIOAnalog)action;
                     dec = $"    SetAO {aioa.pinName}, {aioa.value};";
+                    break;
+
+                case ActionType.StopMotion:
+                    dec = $"    StopMove \\Quick \\AllMotionTasks;\n";
                     break;
 
                 case ActionType.CustomCode:

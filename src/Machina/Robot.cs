@@ -1479,6 +1479,12 @@ namespace Machina
             return c.IssueExtrudeRequest(extrude);
         }
 
+        [ParseableFromString]
+        public bool StopMotion()
+        {
+            return c.IssueStopMotionRequest();
+        }
+
         /// <summary>
         /// Initialize this device for action. Initialization uses device-specific
         /// common initialization routines, like homing and calibration, to set the 

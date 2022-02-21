@@ -1069,6 +1069,13 @@ namespace Machina
         public bool IssueCustomCodeRequest(string statement, bool isDeclaration) =>
                 IssueApplyActionRequest(new ActionCustomCode(statement, isDeclaration));
 
+        /// <summary>
+        /// Issue a request to stop all robot motions. 
+        /// </summary>
+        /// <returns></returns>
+        public bool IssueStopMotionRequest() =>
+                IssueApplyActionRequest(new ActionStopMotion());
+
 
 
 

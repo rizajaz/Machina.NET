@@ -44,6 +44,7 @@ namespace Machina.Drivers.Communication.Protocols
 
         // 2# codes where already in use, resume motion codes on 3#... lol
         internal const int INST_MOVEC = 30;                     // MoveC eX eY eZ eQW eQX eQY eQZ tX tY tZ (end robt + through robt
+        internal const int INST_STOP_MOTION = 31;                 // StopMove[\Quick][\AllMotionTasks]
 
         // Characters used for buffer parsing
         internal const char STR_MESSAGE_END_CHAR = ';';         // Marks the end of a message
@@ -362,6 +363,16 @@ namespace Machina.Drivers.Communication.Protocols
                         action.Id,
                         INST_EXT_JOINTS_ROBTARGET,
                         Math.Round(aaa.angle, Geometry.STRING_ROUND_DECIMALS_DEGS),
+                        STR_MESSAGE_END_CHAR));
+                    break;
+
+                case ActionType.StopMotion:
+                    // !(settool0)
+                    msgs.Add(string.Format(CultureInfo.InvariantCulture,
+                        "{0}{1} {2}{3}",
+                        STR_MESSAGE_ID_CHAR,
+                        action.Id,
+                        INST_STOP_MOTION,
                         STR_MESSAGE_END_CHAR));
                     break;
 

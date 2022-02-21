@@ -100,7 +100,8 @@ MODULE Machina_Driver
     CONST num INST_SET_MOTION_UPDATE_INTERVAL := 103;  ! Sets the motion update interval in seconds.
 
     ! 2# codes where already in use, resume motion codes on 3#... lol
-    CONST num INST_MOVEC := 30;                     ! MoveC eX eY eZ eQW eQX eQY eQZ tX tY tZ (end robt + through robt) 
+    CONST num INST_MOVEC := 30;                     ! MoveC eX eY eZ eQW eQX eQY eQZ tX tY tZ (end robt + through robt)
+	CONST num INST_STOP_MOTION := 31;	
 
     ! (these could be straight strings since they are never used for checks...?)
     PERS num RES_VERSION := 20;                     ! ">20 1 2 1;" Sends version numbers
@@ -300,6 +301,9 @@ MODULE Machina_Driver
                     monitorUpdateInterval := currentAction.p1;
                     TPWrite("Monitor update interval set to " + NumToStr(monitorUpdateInterval, 2) + " s.");
 
+                CASE INST_STOP_EXECUTION:
+                    StopMove \Quick \AllMotionTasks;
+					
                 CASE INST_CUSTOM_ACTION:
                     CustomAction currentAction;
 

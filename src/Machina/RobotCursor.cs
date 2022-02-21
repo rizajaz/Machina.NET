@@ -474,7 +474,8 @@ namespace Machina
             { typeof (ActionExternalAxis),              (act, robCur) => robCur.ApplyAction((ActionExternalAxis) act) },
             { typeof (ActionCustomCode),                (act, robCur) => robCur.ApplyAction((ActionCustomCode) act) },
             { typeof (ActionArmAngle),                  (act, robCur) => robCur.ApplyAction((ActionArmAngle) act) },
-            { typeof (ActionArcMotion),                 (act, robCur) => robCur.ApplyAction((ActionArcMotion) act) }
+            { typeof (ActionArcMotion),                 (act, robCur) => robCur.ApplyAction((ActionArcMotion) act) },
+            { typeof (ActionStopMotion),                 (act, robCur) => robCur.ApplyAction((ActionStopMotion) act) }
         };
 
         /// <summary>
@@ -1378,6 +1379,12 @@ namespace Machina
                 logger.Verbose("Arm-Angle set to " + this.armAngle);
             }
 
+            return true;
+        }
+
+        public bool ApplyAction(ActionStopMotion action)
+        {
+            // @todo. Update the state according to robot's current position.
             return true;
         }
 
