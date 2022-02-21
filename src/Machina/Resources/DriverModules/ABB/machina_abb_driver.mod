@@ -301,7 +301,7 @@ MODULE Machina_Driver
                     monitorUpdateInterval := currentAction.p1;
                     TPWrite("Monitor update interval set to " + NumToStr(monitorUpdateInterval, 2) + " s.");
 
-                CASE INST_STOP_EXECUTION:
+                CASE INST_STOP_MOTION:
                     StopMove \Quick \AllMotionTasks;
 					
                 CASE INST_CUSTOM_ACTION:
